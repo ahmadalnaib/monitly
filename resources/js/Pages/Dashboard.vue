@@ -5,7 +5,7 @@ import SiteSelector from "@/Components/SiteSelector.vue";
 
 defineProps({
     site: Object,
-    sites: Array,
+    sites: Object,
 });
 </script>
 
@@ -20,7 +20,7 @@ defineProps({
                 </h2>
 
                 <div>
-                    <SiteSelector :sites="sites" />
+                    <SiteSelector :sites="sites.data" />
                 </div>
             </div>
         </template>

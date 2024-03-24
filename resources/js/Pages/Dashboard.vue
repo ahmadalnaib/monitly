@@ -1,17 +1,4 @@
-<script setup>
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { Head } from "@inertiajs/vue3";
-import SiteSelector from "@/Components/SiteSelector.vue";
-import PrimaryButton from "@/Components/PrimaryButton.vue";
-import InputLabel from "@/Components/InputLabel.vue";
-import TextInput from "@/Components/TextInput.vue";
 
-defineProps({
-    site: Object,
-    sites: Object,
-    endpointFrequency: Object,
-});
-</script>
 
 <template>
     <Head title="Dashboard" />
@@ -36,6 +23,7 @@ defineProps({
                 </h2>
 
                 <form
+                    @submit.prevent="storeEndpoint"
                     class="bg-white overflow-hidden shadow-sm sm:rounded-lg flex items-center p-3 mt-4 space-x-2"
                 >
                     <div class="grow">
@@ -50,6 +38,7 @@ defineProps({
                             id="location"
                             placeholder="e.g. /pricing"
                             class="block w-full h-9 text-sm border-gray-300"
+                            v-model="endpointForm.location"
                         />
                     </div>
 
@@ -63,6 +52,7 @@ defineProps({
                             name="frequency"
                             id="frequency"
                             class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm h-9 leading-none text-sm"
+                            v-model="endpointForm.frequency"
                         >
                             <option
                                 :value="frequency.frequency"
@@ -79,3 +69,31 @@ defineProps({
         </div>
     </AuthenticatedLayout>
 </template>
+
+
+<script setup>
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
+import { Head } from "@inertiajs/vue3";
+import SiteSelector from "@/Components/SiteSelector.vue";
+import PrimaryButton from "@/Components/PrimaryButton.vue";
+import InputLabel from "@/Components/InputLabel.vue";
+import TextInput from "@/Components/TextInput.vue";
+import { useForm } from "@inertiajs/vue3";
+
+const props = defineProps({
+    site: Object,
+    sites: Object,
+    endpointFrequency: Object,
+});
+
+const endpointForm = useForm({
+    location: '',
+    frequency: props.endpointFrequency.data[0].frequency,
+});
+
+const storeEndpoint = () => {
+    endpointForm.post(route('endpoint.store', {site: props.site.data.id}), {
+    preserveScroll: true,
+});
+};
+</script>

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\SiteStoreController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -15,6 +16,7 @@ Route::get('/', function () {
     ]);
 });
 Route::get('/dashboard/{site?}', DashboardController::class)->middleware(['auth', 'verified'])->name('dashboard');
+Route::post('/sites',SiteStoreController::class)->middleware(['auth', 'verified'])->name('sites.store');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

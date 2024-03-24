@@ -2,8 +2,10 @@
 
 namespace App\Http\Middleware;
 
-use Illuminate\Http\Request;
 use Inertia\Middleware;
+use Illuminate\Http\Request;
+use App\Enums\EndpointFrequency;
+use App\Http\Resources\EndpointFrequencyResource;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -34,6 +36,8 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
             ],
+             // cases method is used to get all the enum values from php enum
+             'endpointFrequency' => EndpointFrequencyResource::collection(EndpointFrequency::cases()),
         ];
     }
 }

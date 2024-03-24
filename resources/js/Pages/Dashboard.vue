@@ -1,5 +1,3 @@
-
-
 <template>
     <Head title="Dashboard" />
 
@@ -40,6 +38,10 @@
                             class="block w-full h-9 text-sm border-gray-300"
                             v-model="endpointForm.location"
                         />
+                        <InputError
+                            class="mt-2"
+                            :message="endpointForm.errors.location"
+                        />
                     </div>
 
                     <div>
@@ -70,7 +72,6 @@
     </AuthenticatedLayout>
 </template>
 
-
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head } from "@inertiajs/vue3";
@@ -78,7 +79,9 @@ import SiteSelector from "@/Components/SiteSelector.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import TextInput from "@/Components/TextInput.vue";
+import InputError from "@/Components/InputError.vue";
 import { useForm } from "@inertiajs/vue3";
+
 
 const props = defineProps({
     site: Object,
@@ -87,13 +90,16 @@ const props = defineProps({
 });
 
 const endpointForm = useForm({
-    location: '',
+    location: "",
     frequency: props.endpointFrequency.data[0].frequency,
 });
 
 const storeEndpoint = () => {
-    endpointForm.post(route('endpoint.store', {site: props.site.data.id}), {
-    preserveScroll: true,
-});
+    endpointForm.post(route("endpoint.store", { site: props.site.data.id }), {
+        preserveScroll: true,
+        onBefore: () => {
+            endpointForm.reset();
+        },
+    });
 };
 </script>

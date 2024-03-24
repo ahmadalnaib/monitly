@@ -65,6 +65,7 @@
                 class="block w-full h-9 text-sm"
                 placeholder="e.g. https://pdfly.ai"
                 v-model="siteForm.domain"
+                :class="{ 'border-red-500': siteForm.errors.domain }"
             />
 
             <InputError :message="siteForm.errors.domain" />

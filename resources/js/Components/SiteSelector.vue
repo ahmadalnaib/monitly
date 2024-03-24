@@ -18,7 +18,7 @@
             </svg>
         </button>
 
-        <template #popper>
+        <template #popper="{ hide }">
             <ul class="-space-y-1">
                 <li v-for="site in sites" :key="site.id">
                     <Link
@@ -30,6 +30,10 @@
 
                 <li>
                     <button
+                        @click="
+                            showNewSiteModal = true;
+                            hide();
+                        "
                         class="block w-full text-left px-2 py-2 hover:bg-gray-100 text-indigo-500 font-bold text-sm"
                     >
                         Add a site
@@ -38,12 +42,25 @@
             </ul>
         </template>
     </VDropdown>
+    <VueFinalModal
+        v-model="showNewSiteModal"
+        class="flex justify-center items-center"
+        content-class="flex flex-col max-w-xl mx-4 p-4 bg-white dark:bg-gray-900 border dark:border-gray-700 rounded-lg space-y-2"
+        overlay-class="bg-gradient-to-b from-gray-800 to-gray-500 opacity-50"
+        :esc-to-close="true"
+    >
+        model content
+    </VueFinalModal>
 </template>
 
 <script setup>
 import { Link } from "@inertiajs/vue3";
+import { VueFinalModal } from "vue-final-modal";
+import { ref } from "vue";
 
 defineProps({
     sites: Array,
 });
+
+const showNewSiteModal = ref(false);
 </script>

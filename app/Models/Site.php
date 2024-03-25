@@ -14,6 +14,10 @@ class Site extends Model
 
 
 
+    public function url()
+    {
+        return $this->scheme . '://' . $this->domain;
+    }
 
 
 

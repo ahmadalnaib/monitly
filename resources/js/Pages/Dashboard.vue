@@ -73,7 +73,7 @@
                         <h2
                             class="font-semibold text-lg text-gray-800 leading-tight"
                         >
-                            Currently monitoring ()
+                            Currently monitoring ({{ endpoints.data.length }})
                         </h2>
 
                         <div

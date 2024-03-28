@@ -5,8 +5,9 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\EndpointStoreController;
 use App\Http\Controllers\SiteStoreController;
+use App\Http\Controllers\EndpointStoreController;
+use App\Http\Controllers\EndpointDestroyController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -19,6 +20,8 @@ Route::get('/', function () {
 Route::get('/dashboard/{site?}', DashboardController::class)->middleware(['auth', 'verified'])->name('dashboard');
 Route::post('/sites', SiteStoreController::class)->middleware(['auth', 'verified'])->name('sites.store');
 Route::post('/sites/{site}/endpoint', EndpointStoreController::class)->middleware(['auth', 'verified'])->name('endpoint.store');
+
+Route::delete('/endpoints/{endpoint}', EndpointDestroyController::class)->middleware(['auth', 'verified'])->name('endpoint.destroy');
 
 
 

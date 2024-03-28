@@ -93,7 +93,7 @@ import { router } from '@inertiajs/vue3'
   })
 
   const deleteEndpoint = () => {
-      if (window.confirm('You sure?')) {
+      if (window.confirm('هل متاكد من حذف هذا العنوان؟')) {
         router.delete(`/endpoints/${props.endpoint.id}`)
       }
   }

@@ -37,7 +37,7 @@ class HandleInertiaRequests extends Middleware
                 'user' => $request->user(),
             ],
              // cases method is used to get all the enum values from php enum
-             'endpointFrequency' => EndpointFrequencyResource::collection(EndpointFrequency::cases()),
+             'endpointFrequencies' => EndpointFrequencyResource::collection(EndpointFrequency::cases()),
         ];
     }
 }

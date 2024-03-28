@@ -58,7 +58,7 @@
                         >
                             <option
                                 :value="frequency.frequency"
-                                v-for="frequency in endpointFrequency.data"
+                                v-for="frequency in endpointFrequencies.data"
                                 :key="frequency.frequency"
                             >
                                 {{ frequency.label }}
@@ -172,13 +172,13 @@ import { useForm } from "@inertiajs/vue3";
 const props = defineProps({
     site: Object,
     sites: Object,
-    endpointFrequency: Object,
+    endpointFrequencies: Object,
     endpoints: Object,
 });
 
 const endpointForm = useForm({
     location: "",
-    frequency: props.endpointFrequency.data[0].frequency,
+    frequency: props.endpointFrequencies.data[0].frequency,
 });
 
 const storeEndpoint = () => {

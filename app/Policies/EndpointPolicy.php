@@ -14,6 +14,12 @@ class EndpointPolicy
      * @param  \App\Models\Endpoint  $endpoint
      * @return bool
      */
+
+     public function update(User $user, Endpoint $endpoint)
+    {
+        return $user->id === $endpoint->site->user_id;  
+    }
+    
     public function destroy(User $user, Endpoint $endpoint)
     {
         return $user->id === $endpoint->site->user_id;

@@ -116,10 +116,12 @@ const editForm = useForm({
 });
 
 const editEndpoint = debounce(() => {
-    editForm.put(`/endpoints/${props.endpoint.id}`);
+    editForm.patch(`/endpoints/${props.endpoint.id}`, {
+        preserveScroll: true,
+    });
 }, 500);
 
-watch(editing, () => {
+watch(()=>editForm.isDirty, () => {
     editEndpoint();
 });
 const deleteEndpoint = () => {

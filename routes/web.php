@@ -8,6 +8,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SiteStoreController;
 use App\Http\Controllers\EndpointStoreController;
 use App\Http\Controllers\EndpointDestroyController;
+use App\Http\Controllers\EndpointUpdateController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -22,7 +23,7 @@ Route::post('/sites', SiteStoreController::class)->middleware(['auth', 'verified
 Route::post('/sites/{site}/endpoint', EndpointStoreController::class)->middleware(['auth', 'verified'])->name('endpoint.store');
 
 Route::delete('/endpoints/{endpoint}', EndpointDestroyController::class)->middleware(['auth', 'verified'])->name('endpoint.destroy');
-
+Route::patch('/endpoints/{endpoint}', EndpointUpdateController::class)->middleware(['auth', 'verified'])->name('endpoint.update');
 
 
 Route::middleware('auth')->group(function () {

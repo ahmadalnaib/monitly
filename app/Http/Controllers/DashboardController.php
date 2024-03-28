@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Enums\EndpointFrequency;
 use App\Http\Resources\SiteResource;
 use App\Http\Resources\EndpointFrequencyResource;
+use App\Http\Resources\EndpointResource;
 
 class DashboardController extends Controller
 {
@@ -24,6 +25,7 @@ class DashboardController extends Controller
         return inertia()->render('Dashboard', [
             'site' => SiteResource::make($site),
             'sites' => SiteResource::collection(Site::get()),
+            'endpoints'=>EndpointResource::collection($site->endpoints),
 
         ]);
     }

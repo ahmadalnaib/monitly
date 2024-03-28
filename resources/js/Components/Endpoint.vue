@@ -10,6 +10,7 @@
                     type="text"
                     class="block w-full h-9 text-sm"
                     placeholder="e.g. /pricing"
+                    v-model="editForm.location"
                 />
             </template>
             <template v-else>
@@ -25,11 +26,13 @@
                     name="frequency"
                     id="frequency"
                     class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm h-9 leading-none text-sm"
+                    v-model="editForm.frequency"
                 >
                     <option
                         :value="frequency.frequency"
                         v-for="frequency in page.props.endpointFrequencies.data"
                         :key="frequency.frequency"
+                        v
                     >
                         {{ frequency.label }}
                     </option>
@@ -93,20 +96,32 @@
 
 <script setup>
 import { router } from "@inertiajs/vue3";
-import { usePage } from "@inertiajs/vue3";
+import { usePage, useForm } from "@inertiajs/vue3";
 import TextInput from "@/Components/TextInput.vue";
 import InputLabel from "@/Components/InputLabel.vue";
-import { ref } from "vue";
+import { ref, watch } from "vue";
+import debounce from "lodash.debounce";
 
 const props = defineProps({
     endpoint: Object,
-   
 });
 
 const page = usePage();
 
 const editing = ref(false);
 
+const editForm = useForm({
+    location: props.endpoint.location,
+    frequency: props.endpoint.frequency_value,
+});
+
+const editEndpoint = debounce(() => {
+    editForm.put(`/endpoints/${props.endpoint.id}`);
+}, 500);
+
+watch(editing, () => {
+    editEndpoint();
+});
 const deleteEndpoint = () => {
     if (window.confirm("هل متاكد من حذف هذا العنوان؟")) {
         router.delete(`/endpoints/${props.endpoint.id}`);

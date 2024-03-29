@@ -11,7 +11,12 @@ class Endpoint extends Model
     use HasFactory;
     protected $fillable = ['location', 'frequency', 'next_check'];
 
-    public $dates=['next_check'];
+    public $dates = ['next_check'];
+
+    public function url()
+    {
+        return $this->site->url()  . $this->location;
+    }
 
 
     public function site()

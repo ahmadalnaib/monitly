@@ -13,7 +13,7 @@ class PerformChecks extends Command
      *
      * @var string
      */
-    protected $signature = 'app:perform-checks';
+    protected $signature = 'checks:perform';
 
     /**
      * The console command description.

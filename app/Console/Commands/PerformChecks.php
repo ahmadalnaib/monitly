@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\Endpoint;
 use Illuminate\Console\Command;
+use App\Jobs\PerformEndpointCheck;
 
 class PerformChecks extends Command
 {
@@ -27,11 +28,11 @@ class PerformChecks extends Command
     public function handle()
     {
 
-        $endpoints = Endpoint::where('next_check', '<=', now())->each(function (){
+        $endpoints = Endpoint::where('next_check', '<=', now())->each(function ($endpoint) {
             //jobs
-            
+            PerformEndpointCheck::dispatch($endpoint);
         });
-        dd($endpoints);
+
         return Command::SUCCESS;
     }
 }

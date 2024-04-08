@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Site;
+use App\Models\Check;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -22,5 +23,15 @@ class Endpoint extends Model
     public function site()
     {
         return $this->belongsTo(Site::class);
+    }
+
+    public function checks()
+    {
+        return $this->hasMany(Check::class);
+    }
+
+    public function check()
+    {
+        return $this->hasOne(Check::class)->latestOfMany();
     }
 }

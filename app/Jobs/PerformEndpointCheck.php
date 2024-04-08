@@ -32,7 +32,7 @@ class PerformEndpointCheck
 
         try{
             $response=Http::get($this->endpoint->url());
-           dd($response->successful());
+       
 
         } catch(Exception $e){
 
